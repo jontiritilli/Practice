@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Closures</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<style>
+		.dragonDiv {
+			height:30vmin;
+			width: 30vmin;
+			font-size: 4vmin;
+			float: left;
+			color: white;
+			text-align: center;
+			text-shadow: 2px 2px 5px black;
+		};
+		.dragonDiv:hover {
+			cursor: pointer;
+		};
+	</style>
+	<script>
+
+// $(document).ready(function(){
+// 	renderDragons(dragons);
+// })
+
+var dragons = [
+	{ name: 'fluffykins', type: 'red', age: 4000, avatar: 'https://vignette.wikia.nocookie.net/forgottenrealms/images/e/e7/4e_red_dragon.jpg/revision/latest/scale-to-width-down/350?cb=20081013211322'},
+	{ name: 'Toothless', type: 'nightyfury', age: 15, avatar: 'https://1d4chan.org/images/thumb/0/03/Toothless_dragon1.jpg/300px-Toothless_dragon1.jpg'},
+	{ name: 'Puff', type: 'magic', age: -5, avatar: 'http://weclipart.com/gimg/B6E5699249553503/puff.gif'},
+	{ name: 'Draco', type: 'gold', age: 12000, avatar: 'http://www.behindthevoiceactors.com/_img/chars/draco-dragonheart-6.92.jpg'}
+];
+
+$(document).ready( renderDragons.bind(null, dragons) ) //gets around the need to create an anonymous function. null because we don't need to bind it to anything specific, and the args after are parameters for the function
+
+function renderDragons(dragonArray){
+	for(var dragonIndex = 0; dragonIndex<=dragonArray.length-1;dragonIndex++){
+		(function(){
+			var dragon = dragonArray[dragonIndex];
+			var dragonDiv = $('<div>',{
+				text: dragon.name,
+				'class': 'dragonDiv',
+				css: {
+					backgroundImage: `url(${dragon.avatar})`,
+					backgroundSize: `cover`,
+					backgroundRepeat: `no-repeat`,
+				},
+				on: {
+					click: function(){
+						var span = $('<span>').text(' - age: ' + dragon.age);
+						$(this).append(span);
+					}
+				}
+			})
+			$('body').append(dragonDiv)
+		})()
+	}
+}
+
+function renderOneDragon(dragon){
+	
+}
+
+
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>
